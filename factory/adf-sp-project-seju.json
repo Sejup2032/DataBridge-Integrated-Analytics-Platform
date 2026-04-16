@@ -1,0 +1,9 @@
+{
+	"name": "adf-sp-project-seju",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "0e154c1c-c019-4abb-95ad-3c6eed5e0ddc",
+		"tenantId": "10cc026f-8a86-408d-b87e-72cfa4df111b"
+	}
+}
