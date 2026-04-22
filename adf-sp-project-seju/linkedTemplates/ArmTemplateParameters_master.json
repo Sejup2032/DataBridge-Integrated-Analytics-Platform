@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "adf-sp-project-seju"
+		},
+		"Azuredatalakestorage_accountKey": {
+			"value": ""
+		},
+		"azuresqldb_password": {
+			"value": ""
+		},
+		"Azuredatalakestorage_properties_typeProperties_url": {
+			"value": "https://spoazuredatalakestorage.dfs.core.windows.net/"
+		},
+		"azuresqldb_properties_typeProperties_server": {
+			"value": "spoazureprojectserver.database.windows.net"
+		},
+		"azuresqldb_properties_typeProperties_database": {
+			"value": "sejuspoazureprojectdb"
+		},
+		"azuresqldb_properties_typeProperties_userName": {
+			"value": "sejal"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
