@@ -53,6 +53,30 @@ Python
 @dlt.expect_or_drop("valid_user", "user_id IS NOT NULL")
 ```
 ---
+---
+## 🛰️ Ingestion & Monitoring (ADF + Logic Apps)
+To ensure the Lakehouse is always up-to-date with the latest streaming activity, I implemented a robust ingestion layer.
+
+* **Incremental Ingestion**: Developed an ADF pipeline using a `Lookup` and `ForEach` activity pattern to identify and pull only new records from source systems, reducing processing costs.
+* **Automated Alerting**: Integrated **Azure Logic Apps** to trigger real-time Web alerts. If any stage of the pipeline fails, a notification is sent immediately, ensuring high availability.
+* **Metadata-Driven**: Used a watermark-based logic to track the `last_cdc` state, ensuring zero data loss during scheduled runs.
+
+**ADF Pipeline Logic**
+
+<img width="852" height="357" alt="ADF" src="https://github.com/user-attachments/assets/9660ef3a-f7c5-45f4-a535-bc11dec61704" />
+
+## 🔄 Metadata-Driven Incremental Ingestion (ADF)
+To optimize costs and performance, I built a watermark-based ingestion framework in Azure Data Factory. This ensures only new or updated records are processed during each cycle.
+
+* **Watermark Logic**: The `last_cdc` lookup identifies the last processed timestamp. If new data exists (`ifIncrementalData` = True), the pipeline triggers a `Copy Data` activity and subsequently updates the control table with the new `max_cdc` value.
+* **Batch Orchestration**: I implemented an `incremental_loop` pipeline utilizing a `ForEach` activity. This allows the same logic to scale across multiple source entities (Users, Tracks, Streams) dynamically by passing table metadata as parameters.
+* **Fault Tolerance**: Includes a `DeleteEmptyFile` cleanup task to ensure the Bronze layer remains clean if a source pull results in an empty dataset.
+
+**Incremental Logic Flow**
+<img width="1427" height="563" alt="incremental_loop inside" src="https://github.com/user-attachments/assets/04dc4f7f-3466-4e27-98df-a6106192111d" />
+
+---
+
 ## 🧬 Change Data Capture (CDC) Deep Dive
 Implementing **Slowly Changing Dimensions (SCD) Type 2** was critical for maintaining the analytical integrity of this Spotify dataset. 
 
